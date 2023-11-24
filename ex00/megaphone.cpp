@@ -10,7 +10,7 @@ int main(int argc, char **argv)
 		cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *\n";
 	else
 	{
-		while (argv[word])
+		while (word < argc)
 		{
 			while (argv[word][letter])
 			{
@@ -19,8 +19,9 @@ int main(int argc, char **argv)
 				cout << argv[word][letter];
 				letter++;
 			}
+			cout << " ";
 			word++;
-			argc--;
+			letter = 0;
 		}
 		cout << "\n"; }
 }
