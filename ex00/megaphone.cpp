@@ -1,5 +1,4 @@
 #include <iostream>
-using namespace std;
 
 int main(int argc, char **argv)
 {
@@ -7,7 +6,7 @@ int main(int argc, char **argv)
 	int letter = 0;
 
 	if (!argv[1])
-		cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *\n";
+		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *\n";
 	else
 	{
 		while (word < argc)
@@ -16,12 +15,12 @@ int main(int argc, char **argv)
 			{
 				if (argv[word][letter] > 96 && argv[word][letter] < 123)
 					argv[word][letter] -= 32;
-				cout << argv[word][letter];
+				std::cout << argv[word][letter];
 				letter++;
 			}
-			cout << " ";
+			std::cout << " ";
 			word++;
 			letter = 0;
 		}
-		cout << "\n"; }
+		std::cout << "\n"; }
 }

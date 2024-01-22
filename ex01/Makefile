@@ -1,12 +1,8 @@
 NAME	= phonebook
 
-CC		= c++ -g
-
-CFLAGS	= -Wall -Werror -Wextra 
+CC		= c++ -Wall -Werror -Wextra -std=c++98
 
 SRC	= main.cpp 
-OBJ = main.o
-
 
 all:	$(NAME)
 
