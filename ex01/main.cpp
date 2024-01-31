@@ -9,7 +9,9 @@ int main() {
     while (true) {
         cout << "Enter a command (ADD, SEARCH, EXIT): ";
         cin >> command;
-
+        
+        for (int i = 0; i < (int)command.length(); i++)
+            command[i] = std::toupper(command[i]);
         if (command == "ADD") {
             phoneBook.addContact();
         } else if (command == "SEARCH") {

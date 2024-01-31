@@ -3,13 +3,14 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
-using namespace std;
+#include <cctype>
+#include <cstdlib>
 class Contact {
 public:
     std::string firstName;
     std::string lastName;
     std::string nickname;
-    std::string phoneNumber;
+    int phoneNumber;
     std::string darkestSecret;
 };
 
@@ -32,52 +33,85 @@ public:
         }
 
         Contact newContact;
-        cout << "First Name: ";
-        cin >> newContact.firstName;
-        cout << "Last Name: ";
-        cin >> newContact.lastName;
-        cout << "Nickname: ";
-        cin >> newContact.nickname;
-        cout << "Phone Number: ";
-        cin >> newContact.phoneNumber;
-        cout << "Darkest Secret: ";
-        cin.ignore();
-        getline(cin, newContact.darkestSecret);
+        std::cout << "First Name: ";
+        std::cin >> newContact.firstName;
+        std::cout << "Last Name: ";
+        std::cin >> newContact.lastName;
+        std::cout << "Nickname: ";
+        std::cin >> newContact.nickname;
+        int valid = 0;
+        while (valid != 1)
+        {
+            valid = 1;
+            std::string temp;
+            std::cout << "Phone Number: ";
+            std::cin >> temp;
+            for (int i = 0; i < (int)temp.length(); i++) {
+                if (!isdigit(temp[i])) {
+                    valid = 0;
+                    std::cout << "invalid PhoneNumber\n";
+                    break;
+                }
+            }   
+            if (valid == 1)
+                newContact.phoneNumber = atoi(temp.c_str());
+
+        }
+        std::cout << "Darkest Secret: ";
+        std::cin.ignore();
+        getline(std::cin, newContact.darkestSecret);
 
         contacts[numContacts] = newContact;
         numContacts++;
     }
     void searchContact() {
         if (numContacts == 0) {
-            cout << "Phonebook is empty." << endl;
+            std::cout << "Phonebook is empty." << std::endl;
             return;
         }
 
-        cout << setw(10) << "INDEX" << "|" << setw(10) << "FIRST NAME" << "|" << setw(10) << "LAST NAME" << "|" << setw(10) << "NICKNAME" << endl;
+        std::cout << std::setw(10) << "INDEX" << "|" << std::setw(10) << "FIRST NAME" << "|" << std::setw(10) << "LAST NAME" << "|" << std::setw(10) << "NICKNAME" << std::endl;
         for (int i = 0; i < numContacts; i++) {
-            cout << setw(10) << i << "|";
-            cout << setw(10) << truncateString(contacts[i].firstName) << "|";
-            cout << setw(10) << truncateString(contacts[i].lastName) << "|";
-            cout << setw(10) << truncateString(contacts[i].nickname) << endl;
+            std::cout << std::setw(10) << i << "|";
+            std::cout << std::setw(10) << truncateString(contacts[i].firstName) << "|";
+            std::cout << std::setw(10) << truncateString(contacts[i].lastName) << "|";
+            std::cout << std::setw(10) << truncateString(contacts[i].nickname) << std::endl;
         }
 
+        int valid = 0;
         int index;
-        cout << "Enter the index of the contact to display: ";
-        cin >> index;
+        while (valid != 1)
+        {
+            std::cout << "Enter the index of the contact to display: ";
+            std::string temp;
+            std::cin >> temp;
+            valid = 1;
+            for (int i = 0; i < (int)temp.length(); i++) {
+                if (!isdigit(temp[i])) {
+                    valid = 0;
+                    std::cout << "invalid Index\n";
+                    break;
+                }
+            }   
+            if (valid == 1)
+                index = atoi(temp.c_str());
+
+        }
+
 
         if (index >= 0 && index < numContacts) {
-            cout << "First Name: " << contacts[index].firstName << endl;
-            cout << "Last Name: " << contacts[index].lastName << endl;
-            cout << "Nickname: " << contacts[index].nickname << endl;
-            cout << "Phone Number: " << contacts[index].phoneNumber << endl;
-            cout << "Darkest Secret: " << contacts[index].darkestSecret << endl;
+            std::cout << "First Name: " << contacts[index].firstName << std::endl;
+            std::cout << "Last Name: " << contacts[index].lastName << std::endl;
+            std::cout << "Nickname: " << contacts[index].nickname << std::endl;
+            std::cout << "Phone Number: " << contacts[index].phoneNumber << std::endl;
+            std::cout << "Darkest Secret: " << contacts[index].darkestSecret << std::endl;
         } else {
-            cout << "Invalid index." << endl;
+            std::cout << "Invalid index." << std::endl;
         }
     }
 
 private:
-    string truncateString(const string& str) {
+    std::string truncateString(const std::string& str) {
         if (str.length() > 10) {
             return str.substr(0, 9) + ".";
         }
